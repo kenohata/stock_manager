@@ -6,6 +6,9 @@ class CreateStockOrderItems < ActiveRecord::Migration
       t.integer :quantity
 
       t.timestamps null: false
+
+      t.index :stock_order_id
+      t.index :product_id
     end
   end
 end

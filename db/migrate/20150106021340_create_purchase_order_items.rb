@@ -6,6 +6,9 @@ class CreatePurchaseOrderItems < ActiveRecord::Migration
       t.integer :quantity
 
       t.timestamps null: false
+
+      t.index :purchase_order_id
+      t.index :product_id
     end
   end
 end

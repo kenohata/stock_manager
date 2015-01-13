@@ -1,0 +1,70 @@
+<form id="new_order">
+  <div id="products">
+  </div>
+  <input type="submit" value="送信" />
+</form>
+
+<script type="text/javascript">
+  $(function(){
+
+    var products  = [];
+    var $form     = $('#new_order');
+    var $products = $('#products');
+
+    var template = function(product){
+      var temp = "";
+      var name = "product_" + product.id;
+
+      temp += "<div id='product'>";
+      temp += product.name;
+      temp += "<img src='" + product.image.url +  "'' width='60' height='60'>";
+      temp += "<input type='number' name='" + name + "' value=0>"
+      temp += "</div>";
+
+      return temp;
+    };
+
+    $.ajax('/products', {
+      type: "GET",
+      success: function(data, status, xhr){
+
+        data.forEach(function(attrs){
+          var product = new Product(attrs);
+          products.push(product);
+        });
+
+        products.forEach(function(product){
+          $products.append(template(product));
+
+          var $product = $products.find("input[name=product_" + product.id + "]");
+          var onChange = function(e){
+            product.quantity = $product.val();
+          }
+
+          $product.on('change keyup', onChange);
+        });
+
+        $form.submit(function(e){
+          e.stopPropagation();
+          e.preventDefault();
+
+          var json = {};
+          json.items = [];
+
+          json.orderer_name = "ohataken";
+
+          products.forEach(function(product){
+            var hash = { product_id: product.id, quantity: product.quantity };
+            json.items.push(hash);
+          });
+
+          $.ajax('/purchase_orders', {
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({order: json})
+          })
+        });
+      },
+    });
+  });
+</script>

@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
 
   resources :products, only: [:index]
-  resources :purchase_orders, only: [:create]
+  resources :purchase_orders, only: [:index, :new, :create]
   resources :stock_orders, only: [:create]
 
-  root to: 'application#index'
+  root to: 'purchase_orders#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

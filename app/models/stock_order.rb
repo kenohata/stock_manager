@@ -5,4 +5,5 @@ class StockOrder < ActiveRecord::Base
 
   validates :orderer_name, presence: true, length: { maximum: 100 }
   validates :item_size, length: { minimum: 1 }
+  validates :items_size_all_nonzero?, inclusion: { in: [true] }
 end

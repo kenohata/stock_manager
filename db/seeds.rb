@@ -6,6 +6,6 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Product.create(image: open("#{Rails.root}/public/images/kirin_beer_500.jpg"), name: "kirin500")
-Product.create(image: open("#{Rails.root}/public/images/kirin_lager_500.jpg"), name: "lagar500")
-Product.create(image: open("#{Rails.root}/public/images/kirin_tanrei_500.jpg"), name: "tanrei500")
+Product.create(image: open("#{Rails.root}/public/images/kirin_beer_500.jpg"),   name: "kirin500",  price: 350)
+Product.create(image: open("#{Rails.root}/public/images/kirin_lager_500.jpg"),  name: "lagar500",  price: 350)
+Product.create(image: open("#{Rails.root}/public/images/kirin_tanrei_500.jpg"), name: "tanrei500", price: 250)

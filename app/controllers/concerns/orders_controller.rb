@@ -33,7 +33,7 @@ class OrdersController < ApplicationController
       product  = Product.find(item[:product_id])
       quantity = item[:quantity]
 
-      @order.items.build(product: product, quantity: quantity) if quantity and quantity.to_i  .nonzero?
+      @order.items.build(product: product, quantity: quantity) if quantity and quantity.to_i.nonzero?
     end
   end
 end

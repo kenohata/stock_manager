@@ -16,4 +16,8 @@ class Product < ActiveRecord::Base
       @stock_quantity = incoming - outgoing
     end
   end
+
+  def as_json options = nil
+    super(options).merge image: { url: "/images/kirin_beer_500.jpg" }
+  end
 end

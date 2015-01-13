@@ -1,4 +1,4 @@
-module OrdersController
+class OrdersController < ApplicationController
 
   def new
     @order = order_model.new

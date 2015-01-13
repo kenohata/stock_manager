@@ -4,6 +4,8 @@ class Product < ActiveRecord::Base
 
   mount_uploader :image, ImageUploader
 
+  validates :price, numericality: { grater_than: 0 }
+
   def stock_quantity
     if @stock_quantity
       @stock_quantity

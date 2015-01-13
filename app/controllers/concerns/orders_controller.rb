@@ -11,7 +11,7 @@ class OrdersController < ApplicationController
       if @order.save
         format.json { render json: @products }
       else
-        format.json { render json: @order.errors.full_messages }
+        format.json { render json: @order.errors.full_messages, status: :bad_request }
       end
     end
   end

@@ -61,7 +61,10 @@
           $.ajax('/purchase_orders', {
             type: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify({order: json})
+            data: JSON.stringify({order: json}),
+            success: function(data, status, xhr){
+              location.assign("/");
+            }
           })
         });
       },

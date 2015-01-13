@@ -1,6 +1,4 @@
-class PurchaseOrdersController < ApplicationController
-  include OrdersController
-
+class PurchaseOrdersController < OrdersController
   private
 
   def order_model

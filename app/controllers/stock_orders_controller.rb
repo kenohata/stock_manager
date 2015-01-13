@@ -1,6 +1,4 @@
-class StockOrdersController < ApplicationController
-  include OrdersController
-
+class StockOrdersController < OrdersController
   private
 
   def order_model

@@ -6,14 +6,26 @@ class Product < ActiveRecord::Base
 
   validates :price, numericality: { grater_than: 0 }
 
-  def stock_quantity
-    if @stock_quantity
-      @stock_quantity
+  def quantity
+    if item = last_order_item
+      item.product_quantity_cache
     else
-      accum    = ->(sum, item){ sum + item.quantity }
-      incoming = stock_order_items.inject(0, &accum)
-      outgoing = purchase_order_items.inject(0, &accum)
-      @stock_quantity = incoming - outgoing
+      0
     end
+  end
+
+  def last_order_item
+    stock    = stock_order_items.first
+    purchase = purchase_order_items.first
+
+    if stock and purchase
+      stock.created_at > purchase.created_at ? stock : purchase
+    else
+      stock or purchase
+    end
+  end
+
+  def order_items
+    @order_items ||= (stock_order_items + purchase_order_items).sort_by(&:created_at)
   end
 end

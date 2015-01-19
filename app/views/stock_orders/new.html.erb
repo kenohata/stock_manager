@@ -57,24 +57,26 @@
           e.stopPropagation();
           e.preventDefault();
 
-          var json = {};
-          json.items = [];
+          if(window.alert("納品します。よろしいですか？")){
+            var json = {};
+            json.items = [];
 
-          json.orderer_name = "ohataken";
+            json.orderer_name = "ohataken";
 
-          products.forEach(function(product){
-            var hash = { product_id: product.id, quantity: product.quantity };
-            json.items.push(hash);
-          });
+            products.forEach(function(product){
+              var hash = { product_id: product.id, quantity: product.quantity };
+              json.items.push(hash);
+            });
 
-          $.ajax('/stock_orders', {
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({order: json}),
-            success: function(data, status, xhr){
-              location.assign("/stock_orders");
-            }
-          })
+            $.ajax('/stock_orders', {
+              type: 'POST',
+              contentType: 'application/json',
+              data: JSON.stringify({order: json}),
+              success: function(data, status, xhr){
+                location.assign("/stock_orders");
+              }
+            })
+          };
         });
       },
     });

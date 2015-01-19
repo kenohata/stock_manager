@@ -57,24 +57,28 @@
           e.stopPropagation();
           e.preventDefault();
 
-          var json = {};
-          json.items = [];
+          if(window.alert("発注します。よろしいですか？")){
 
-          json.orderer_name = "ohataken";
+            var json = {};
+            json.items = [];
 
-          products.forEach(function(product){
-            var hash = { product_id: product.id, quantity: product.quantity };
-            json.items.push(hash);
-          });
+            json.orderer_name = "ohataken";
 
-          $.ajax('/purchase_orders', {
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({order: json}),
-            success: function(data, status, xhr){
-              location.assign("/");
-            }
-          })
+            products.forEach(function(product){
+              var hash = { product_id: product.id, quantity: product.quantity };
+              json.items.push(hash);
+            });
+
+            $.ajax('/purchase_orders', {
+              type: 'POST',
+              contentType: 'application/json',
+              data: JSON.stringify({order: json}),
+              success: function(data, status, xhr){
+                location.assign("/");
+              }
+            })
+
+          }
         });
       },
     });

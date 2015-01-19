@@ -1,7 +1,4 @@
 class PurchaseOrdersController < OrdersController
-  def index
-    @orders = order_model.all
-  end
 
   private
 

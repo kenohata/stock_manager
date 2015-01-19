@@ -1,5 +1,8 @@
 class OrdersController < ApplicationController
   before_action :set_new_order
+  def index
+    @orders = order_model.all
+  end
 
   def new
   end

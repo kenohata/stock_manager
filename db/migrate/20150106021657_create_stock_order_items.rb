@@ -4,6 +4,7 @@ class CreateStockOrderItems < ActiveRecord::Migration
       t.integer :stock_order_id
       t.integer :product_id
       t.integer :quantity
+      t.integer :product_quantity_cache
 
       t.timestamps null: false
 

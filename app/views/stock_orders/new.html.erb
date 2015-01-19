@@ -1,0 +1,82 @@
+<ol class="breadcrumb">
+  <li><%= link_to "home", root_path %></li>
+  <li><%= link_to "new", new_purchase_order_path %></li>
+</ol>
+
+<form id="new_order">
+  <div id="products">
+  </div>
+
+  <div class="col-xs-12">
+    <input type="submit" value="送信" class="btn btn-default" />
+  </div>
+</form>
+
+<script type="text/javascript">
+  $(function(){
+
+    var products  = [];
+    var $form     = $('#new_order');
+    var $products = $('#products');
+
+    var template = function(product){
+      var temp = "";
+      var name = "product_" + product.id;
+
+      temp += "<div id='product' class='col-md-4 text-center'>";
+      temp +=   "<img src='/" + product.image +  "'' width='120' height='120'>";
+      temp +=   "<p>" + product.name + "</p>"
+      temp +=   "<label for='" + name + "_quantity'>数量</label> : "
+      temp +=   "<input id='" + name + "_quantity' type='number' name='" + name + "' value=0>"
+      temp += "</div>";
+
+      return temp;
+    };
+
+    $.ajax('/products', {
+      type: "GET",
+      success: function(data, status, xhr){
+
+        data.forEach(function(attrs){
+          var product = new Product(attrs);
+          products.push(product);
+        });
+
+        products.forEach(function(product){
+          $products.append(template(product));
+
+          var $product = $products.find("input[name=product_" + product.id + "]");
+          var onChange = function(e){
+            product.quantity = $product.val();
+          }
+
+          $product.on('change keyup', onChange);
+        });
+
+        $form.submit(function(e){
+          e.stopPropagation();
+          e.preventDefault();
+
+          var json = {};
+          json.items = [];
+
+          json.orderer_name = "ohataken";
+
+          products.forEach(function(product){
+            var hash = { product_id: product.id, quantity: product.quantity };
+            json.items.push(hash);
+          });
+
+          $.ajax('/stock_orders', {
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({order: json}),
+            success: function(data, status, xhr){
+              location.assign("/stock_orders");
+            }
+          })
+        });
+      },
+    });
+  });
+</script>

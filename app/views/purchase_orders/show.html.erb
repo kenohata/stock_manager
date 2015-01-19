@@ -1,0 +1,27 @@
+<ol class="breadcrumb">
+  <li><%= link_to "発注書一覧", purchase_orders_path %></li>
+  <li><%= @order.created_at.strftime "%Y/%m/%d %H:%m" %>の発注書</li>
+</ol>
+
+<h1>発注書</h1>
+
+発注日時: <%= @order.created_at.strftime " %Y/%m/%d %H:%m" %>
+
+<table>
+  <thead>
+    <tr>
+      <th>商品名</th>
+      <th>数量</th>
+      <th>単価</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%- @order.items.each do |item| %>
+      <tr>
+        <td><%= item.product.name %></td>
+        <td><%= item.quantity %></td>
+        <td><%= item.product.price %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

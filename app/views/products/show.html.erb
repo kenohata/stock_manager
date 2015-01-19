@@ -1,0 +1,26 @@
+<ol class="breadcrumb">
+  <li><%= link_to "製品一覧", products_path %></li>
+  <li><%= @product.name %></li>
+</ol>
+
+<h1><%= @product.name %></h1>
+
+<% @product.order_items.each do |item| %>
+  <div>
+    <div>
+      <%= item.created_at.strftime "%Y/%m/%d %H:%M" %>
+    </div>
+    <div>
+      <%= item.quantity %>個
+    </div>
+    <div>
+      <% case item %>
+      <% when PurchaseOrderItem %>
+        出荷
+      <% when StockOrderItem %>
+        入荷
+      <% end %>
+    </div>
+  </div>
+  <hr>
+<% end %>

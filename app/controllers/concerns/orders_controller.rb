@@ -1,5 +1,7 @@
 class OrdersController < ApplicationController
-  before_action :set_new_order
+  before_action :set_new_order, only: [:new, :create]
+  before_action :set_order, only: [:show]
+
   def index
     @orders = order_model.all
   end
@@ -17,6 +19,9 @@ class OrdersController < ApplicationController
         format.json { render json: @order.errors.full_messages, status: :bad_request }
       end
     end
+  end
+
+  def show
   end
 
   private
@@ -38,5 +43,9 @@ class OrdersController < ApplicationController
 
       @order.items.build(product: product, quantity: quantity, order: @order) if quantity and quantity.to_i.nonzero?
     end
+  end
+
+  def set_order
+    @order = order_model.find(params[:id])
   end
 end

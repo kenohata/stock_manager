@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
 
-  resources :products, only: [:index]
-  resources :purchase_orders, only: [:index, :new, :create]
-  resources :stock_orders, only: [:create]
+  resources :products, only: [:index, :show]
+  resources :purchase_orders, only: [:index, :new, :create, :show]
+  resources :stock_orders, only: [:index, :new, :create, :show]
 
   root to: 'purchase_orders#index'
 

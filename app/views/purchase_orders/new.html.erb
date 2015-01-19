@@ -1,7 +1,15 @@
+<ol class="breadcrumb">
+  <li><%= link_to "home", root_path %></li>
+  <li><%= link_to "new", new_purchase_order_path %></li>
+</ol>
+
 <form id="new_order">
   <div id="products">
   </div>
-  <input type="submit" value="送信" />
+
+  <div class="col-xs-12">
+    <input type="submit" value="送信" class="btn btn-default" />
+  </div>
 </form>
 
 <script type="text/javascript">
@@ -15,10 +23,11 @@
       var temp = "";
       var name = "product_" + product.id;
 
-      temp += "<div id='product'>";
-      temp += product.name;
-      temp += "<img src='" + product.image.url +  "'' width='60' height='60'>";
-      temp += "<input type='number' name='" + name + "' value=0>"
+      temp += "<div id='product' class='col-md-4 text-center'>";
+      temp +=   "<img src='/" + product.image +  "'' width='120' height='120'>";
+      temp +=   "<p>" + product.name + "</p>"
+      temp +=   "<label for='" + name + "_quantity'>数量</label> : "
+      temp +=   "<input id='" + name + "_quantity' type='number' name='" + name + "' value=0>"
       temp += "</div>";
 
       return temp;

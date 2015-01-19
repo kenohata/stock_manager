@@ -57,7 +57,7 @@
           e.stopPropagation();
           e.preventDefault();
 
-          if(window.alert("発注します。よろしいですか？")){
+          if(window.confirm("発注します。よろしいですか？")){
 
             var json = {};
             json.items = [];

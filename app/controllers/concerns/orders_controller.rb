@@ -7,6 +7,7 @@ class OrdersController < ApplicationController
     @products = Product.all
 
     respond_to do |format|
+      set_cors_header
       format.json { render 'orders/index.json' }
       format.html
     end
@@ -20,6 +21,7 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       if @order.save
+        set_cors_header
         format.json { render json: @products }
       else
         format.json { render json: @order.errors.full_messages, status: :bad_request }
@@ -28,6 +30,7 @@ class OrdersController < ApplicationController
   end
 
   def show
+    set_cors_header
   end
 
   private
@@ -53,5 +56,9 @@ class OrdersController < ApplicationController
 
   def set_order
     @order = order_model.find(params[:id])
+  end
+
+  def set_cors_header
+    headers['Access-Control-Allow-Origin'] = "*"
   end
 end

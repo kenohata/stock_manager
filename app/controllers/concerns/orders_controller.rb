@@ -20,8 +20,9 @@ class OrdersController < ApplicationController
     set_params_order
 
     respond_to do |format|
+      set_cors_header
+
       if @order.save!
-        set_cors_header
         format.json { render json: @products }
       else
         format.json { render json: @order.errors.full_messages, status: :bad_request }

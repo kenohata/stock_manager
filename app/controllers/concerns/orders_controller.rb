@@ -20,7 +20,7 @@ class OrdersController < ApplicationController
     set_params_order
 
     respond_to do |format|
-      if @order.save
+      if @order.save!
         set_cors_header
         format.json { render json: @products }
       else
@@ -46,7 +46,7 @@ class OrdersController < ApplicationController
   def set_params_order
     @order.assign_attributes(orderer_name: params_order[:orderer_name])
 
-    params_order[:items].each do |item|
+    params_order[:items].each do |key, item|
       product  = Product.find(item[:product_id])
       quantity = item[:quantity]
 

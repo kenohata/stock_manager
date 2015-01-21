@@ -5,6 +5,11 @@ class OrdersController < ApplicationController
   def index
     @orders = order_model.all
     @products = Product.all
+
+    respond_to do |format|
+      format.json { render 'orders/index.json' }
+      format.html
+    end
   end
 
   def new

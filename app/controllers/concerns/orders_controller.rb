@@ -57,8 +57,4 @@ class OrdersController < ApplicationController
   def set_order
     @order = order_model.find(params[:id])
   end
-
-  def set_cors_header
-    headers['Access-Control-Allow-Origin'] = "*"
-  end
 end

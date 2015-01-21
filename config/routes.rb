@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :products, only: [:index, :show]
   resources :purchase_orders, only: [:index, :new, :show]
   resources :stock_orders, only: [:index, :new, :show]
+  resources :all_orders, only: [:index]
 
   get 'create_purchase_orders' => 'purchase_orders#create'
   get 'create_stock_orders' => 'stock_orders#create'

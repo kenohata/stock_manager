@@ -7,9 +7,10 @@ json.orders @orders do |order|
     json.product_name product.name
 
     if item = order.items.find{ |i| i.product_id == product.id }
-      json.quantity item.quantity
+      json.extract! item, :quantity, :quantity_diff
     else
       json.quantity 0
+      json.quantity_diff 0
     end
   end
 end

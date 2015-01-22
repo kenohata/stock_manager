@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
   before_action :set_order, only: [:show]
 
   def index
-    @orders = order_model.all
+    @orders = order_model.limit(20)
     @products = Product.all
 
     respond_to do |format|

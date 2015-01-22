@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   def index
     @products = Product.all
-    @orders   = PurchaseOrder.all + StockOrder.all
+    @orders   = PurchaseOrder.limit(10) + StockOrder.limit(10)
     @orders.sort_by(&:created_at)
 
     respond_to do |format|
